@@ -1,80 +1,74 @@
-<img width="1612" height="1046" alt="FDFF5331-90AD-4BEC-9683-66F9588A47D5" src="https://github.com/user-attachments/assets/3e1ab382-81db-4108-a825-c44a1381a5e8" />
-# 📊 Email Analytics Data Pipeline (Dockerized)
+<img width="1614" height="1088" alt="D0A8CDDE-5AE4-4143-89FA-B205B6366F16" src="https://github.com/user-attachments/assets/59d3b323-c15e-461e-a68a-5b85224000fe" />
 
-This project demonstrates a **containerized data pipeline** that ingests email events, processes them using a workflow orchestrator, and visualizes analytics in a BI tool. It is designed as a **data engineering portfolio project** and can be run locally using Docker.
+# 📊 Email Analytics Data Pipeline (Dagster + Docker)
+
+This project demonstrates a **containerized, production-style data pipeline** that ingests email events, orchestrates processing with **Dagster**, and visualizes analytics in **Power BI**. It is designed as a **data engineering portfolio project** following real-world architecture patterns.
 
 ---
 
 ## 🏗️ Architecture Overview
 
 ```
-Email Source → Docker → Airflow → Data Warehouse → Power BI
+Email Source → Docker → Dagster → Data Warehouse → Power BI
 ```
 
-### Components
+---
 
-* **Email Source (Gmail / Email API)**
+## 🔧 Components Explained
 
-  * Acts as the raw data source (email events, notifications, logs, etc.)
+### 📧 Email Source
 
-* **Docker**
+* Gmail / Email API / mock CSV data
+* Raw events: sent, opened, clicked, received
 
-  * All services are containerized for easy setup and reproducibility
+### 🐳 Docker (Infrastructure Layer)
 
-* **Apache Airflow**
+* All services run inside containers
+* Ensures reproducibility and easy local setup
+* Single command startup using docker-compose
 
-  * Orchestrates the pipeline
-  * Handles scheduling, retries, and dependencies
-  * Runs ETL tasks inside containers
+### 🧠 Dagster (Orchestration Layer)
 
-* **Data Warehouse (Postgres / BigQuery / Snowflake)**
+* Defines **assets, jobs, and schedules**
+* Handles orchestration, retries, and dependencies
+* Manages backfills and partitioned data
+* Produces clean, validated datasets
 
-  * Stores cleaned and transformed data
-  * Optimized for analytics queries
+### 🗄️ Data Warehouse
 
-* **Power BI**
+* Postgres / BigQuery / Snowflake
+* Stores transformed and analytics-ready data
+* Partitioned by date for performance
 
-  * Connects to the warehouse
-  * Used for dashboards and reporting
+### 📈 Power BI (Visualization)
+
+* Connects directly to the warehouse
+* Used for dashboards and reporting
+* Auto-refresh enabled
 
 ---
 
 ## 🔄 Data Flow
 
-1. **Ingestion**
+1. **Ingest**
 
-   * Airflow pulls email data from the source (API / export / mock data)
+   * Email events collected from source
 
-2. **Processing**
+2. **Process & Orchestrate (Dagster)**
 
-   * Data is cleaned, validated, and transformed
-   * Timestamps normalized
-   * Schema enforced
+   * Schema validation
+   * Data cleaning & transformation
+   * Asset materialization
+   * Scheduling & backfills
 
-3. **Loading**
+3. **Load**
 
-   * Transformed data is written to the warehouse
-   * Partitioned by date for performance
+   * Clean data written to warehouse
+   * Partitioned by date
 
-4. **Visualization**
+4. **Visualize**
 
-   * Power BI reads from the warehouse
-   * Dashboards update automatically
-
----
-
-## 🐳 Docker Setup
-
-All services run in Docker containers:
-
-* `airflow-webserver`
-* `airflow-scheduler`
-* `postgres` (metadata DB)
-* `warehouse` (analytics DB)
-
-```bash
-docker-compose up -d
-```
+   * Power BI dashboards update automatically
 
 ---
 
@@ -82,88 +76,72 @@ docker-compose up -d
 
 ```
 .
-├── dags/                # Airflow DAGs
-├── scripts/             # ETL scripts
-├── data/                # Sample datasets
-├── docker-compose.yml   # Service definitions
-├── Dockerfile           # Custom Airflow image
+├── dagster/              # Dagster assets, jobs, schedules
+├── scripts/              # ETL logic
+├── data/                 # Sample datasets
+├── docker-compose.yml    # All services
+├── Dockerfile            # Custom Dagster image
 └── README.md
 ```
 
 ---
 
-## ⚙️ Example DAG Flow
+## 🐳 Run Locally
 
-```text
-extract_email_data → transform_data → load_to_warehouse
+```bash
+docker-compose up -d
 ```
 
-Each task runs in isolation and is fully retryable.
+### Access Services
+
+* Dagster UI: [http://localhost:3000](http://localhost:3000)
+* Warehouse: localhost:5432
 
 ---
 
-## 📈 Analytics Use Cases
+## ⚙️ Example Pipeline
+
+```text
+extract_email_data → transform_email_data → load_to_warehouse
+```
+
+---
+
+## 📊 Example Analytics
 
 * Email volume per day
-* Open / click rates
+* Open and click rates
 * Processing latency
-* Event trends over time
+* Daily trends and spikes
 
 ---
 
-## 🧪 Testing
+## 🧪 Testing Strategy
 
-* Local CSV datasets for backfill testing
-* Multiple days of data for partition validation
-* Idempotent DAG runs
-
----
-
-## 🚀 How to Run
-
-1. Clone repository
-
-   ```bash
-   git clone <repo-url>
-   cd project
-   ```
-
-2. Start services
-
-   ```bash
-   docker-compose up -d
-   ```
-
-3. Open Airflow
-
-   ```
-   http://localhost:8080
-   ```
-
-4. Run DAG and refresh Power BI
+* Multiple day CSV datasets (backfill testing)
+* Partitioned assets (daily)
+* Idempotent runs
+* Late-arriving data simulation
+* Schema drift handling
 
 ---
 
 ## 🎯 Skills Demonstrated
 
-* Data pipeline design
-* Apache Airflow orchestration
+* Dagster orchestration (assets, schedules, sensors)
 * Docker & containerization
 * ETL / ELT best practices
+* Partitioned data modeling
 * Analytics engineering
-* BI integration
-
----
-
-## 📌 Notes
-
-This project is built for learning and portfolio purposes but follows real-world data engineering patterns.
+* BI integration (Power BI)
 
 ---
 
 ## 👤 Author
 
 **Ian Tristan**
-Aspiring Data Engineer | Cloud | ETL | Analytics
+Aspiring Data Engineer | Dagster | Docker | Analytics
+
+---
 
 
