@@ -1,4 +1,7 @@
 <img width="1614" height="1088" alt="D0A8CDDE-5AE4-4143-89FA-B205B6366F16" src="https://github.com/user-attachments/assets/59d3b323-c15e-461e-a68a-5b85224000fe" />
+<img width="2918" height="1350" alt="D0E03C16-E0C6-4FB4-A282-7DB13E84B701" src="https://github.com/user-attachments/assets/d6353e12-3461-41bb-ac25-8402f8861ed2" />
+
+
 
 # 📊 Email Analytics Data Pipeline (Dagster + Docker)
 
@@ -143,5 +146,6 @@ extract_email_data → transform_email_data → load_to_warehouse
 Aspiring Data Engineer | Dagster | Docker | Analytics
 
 ---
+
 
 
