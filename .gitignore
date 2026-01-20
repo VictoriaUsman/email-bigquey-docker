@@ -1,0 +1,25 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+gcp-key.json
+token.json
+client_secrets.json
+.venv/
+__pycache__/
+.DS_Storetoken.json
+client_secrets.json
+gcp-key.json
+.venv/
+token.json
+client_secrets.json
+gcp-key.json
+.venv/
+__pycache__/
+.DS_Store

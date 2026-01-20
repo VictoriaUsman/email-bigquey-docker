@@ -1,0 +1,55 @@
+services:
+  # Dagster Internal Database
+  dagster_db:
+    image: postgres:15
+    container_name: dagster_db
+    environment:
+      POSTGRES_USER: postgres_user
+      POSTGRES_PASSWORD: postgres_password
+      POSTGRES_DB: dagster_db
+    networks:
+      - dagster_network
+
+  # Dagster Webserver (UI)
+  dagster_webserver:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: dagster_webserver
+    entrypoint: ["dagster-webserver", "-h", "0.0.0.0", "-p", "3000", "-w", "workspace.yaml"]
+    volumes:
+      - .:/opt/dagster/app
+    environment:
+      DAGSTER_POSTGRES_USER: postgres_user
+      DAGSTER_POSTGRES_PASSWORD: postgres_password
+      DAGSTER_POSTGRES_DB: dagster_db
+      GOOGLE_APPLICATION_CREDENTIALS: /opt/dagster/app/gcp-key.json
+    ports:
+      - "3000:3000"
+    depends_on:
+      - dagster_db
+    networks:
+      - dagster_network
+
+  # Dagster Daemon (The Scheduler)
+  dagster_daemon:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dagster_daemon
+    entrypoint: ["dagster-daemon", "run"]
+    volumes:
+      - .:/opt/dagster/app
+    environment:
+      DAGSTER_POSTGRES_USER: postgres_user
+      DAGSTER_POSTGRES_PASSWORD: postgres_password
+      DAGSTER_POSTGRES_DB: dagster_db
+      GOOGLE_APPLICATION_CREDENTIALS: /opt/dagster/app/gcp-key.json
+    depends_on:
+      - dagster_db
+    networks:
+      - dagster_network
+
+networks:
+  dagster_network:
+    driver: bridge

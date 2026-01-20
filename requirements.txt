@@ -1,0 +1,15 @@
+# Core Packages (Use specific version)
+dagster==1.9.8
+dagster-webserver==1.9.8
+
+# Library Packages (Let pip find compatible versions)
+dagster-postgres
+dagster-gcp
+dagster-dbt
+
+# Data Tools
+dbt-bigquery
+pandas
+pandas-gbq
+google-api-python-client
+google-auth-oauthlib

@@ -1,0 +1,12 @@
+storage:
+  postgres:
+    postgres_db:
+      username: postgres_user
+      password: postgres_password
+      hostname: dagster_db
+      db_name: dagster_db
+      port: 5432
+
+scheduler:
+  module: dagster.core.scheduler
+  class: DagsterDaemonScheduler
