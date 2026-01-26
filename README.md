@@ -4,6 +4,7 @@
 
 <img width="2918" height="1350" alt="D0E03C16-E0C6-4FB4-A282-7DB13E84B701" src="https://github.com/user-attachments/assets/d6353e12-3461-41bb-ac25-8402f8861ed2" />
 <img width="2934" height="952" alt="5EF2AAD7-72B0-4015-AA34-D3AF8D8E51DD" src="https://github.com/user-attachments/assets/12a19b1d-cc4c-4f7a-80ac-50f08f1e2227" />
+![Uploading 1B67DD00-3817-48A0-BE7E-4695EE9D2C99.png…]()
 
 
 
@@ -151,6 +152,7 @@ extract_email_data → transform_email_data → load_to_warehouse
 Aspiring Data Engineer | Dagster | Docker | Analytics
 
 ---
+
 
 
 
